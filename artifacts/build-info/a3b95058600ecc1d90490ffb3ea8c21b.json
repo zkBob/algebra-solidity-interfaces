@@ -1,13 +1,13 @@
 {
-  "id": "da830e1ea763a1280fb5504ac87e29de",
+  "id": "a3b95058600ecc1d90490ffb3ea8c21b",
   "_format": "hh-sol-build-info-1",
-  "solcVersion": "0.7.6",
-  "solcLongVersion": "0.7.6+commit.7338295f",
+  "solcVersion": "0.8.15",
+  "solcLongVersion": "0.8.15+commit.e14f2714",
   "input": {
     "language": "Solidity",
     "sources": {
       "contracts/core/IAlgebraFactory.sol": {
-        "content": "// SPDX-License-Identifier: GPL-2.0-or-later\r\npragma solidity >=0.5.0;\r\n\r\n/**\r\n * @title The interface for the Algebra Factory\r\n * @dev Credit to Uniswap Labs under GPL-2.0-or-later license:\r\n * https://github.com/Uniswap/v3-core/tree/main/contracts/interfaces\r\n */\r\ninterface IAlgebraFactory {\r\n  /**\r\n   *  @notice Emitted when the owner of the factory is changed\r\n   *  @param newOwner The owner after the owner was changed\r\n   */\r\n  event Owner(address indexed newOwner);\r\n\r\n  /**\r\n   *  @notice Emitted when the vault address is changed\r\n   *  @param newVaultAddress The vault address after the address was changed\r\n   */\r\n  event VaultAddress(address indexed newVaultAddress);\r\n\r\n  /**\r\n   *  @notice Emitted when a pool is created\r\n   *  @param token0 The first token of the pool by address sort order\r\n   *  @param token1 The second token of the pool by address sort order\r\n   *  @param pool The address of the created pool\r\n   */\r\n  event Pool(address indexed token0, address indexed token1, address pool);\r\n\r\n  /**\r\n   *  @notice Emitted when the farming address is changed\r\n   *  @param newFarmingAddress The farming address after the address was changed\r\n   */\r\n  event FarmingAddress(address indexed newFarmingAddress);\r\n\r\n  event FeeConfiguration(\r\n    uint16 alpha1,\r\n    uint16 alpha2,\r\n    uint32 beta1,\r\n    uint32 beta2,\r\n    uint16 gamma1,\r\n    uint16 gamma2,\r\n    uint32 volumeBeta,\r\n    uint16 volumeGamma,\r\n    uint16 baseFee\r\n  );\r\n\r\n  /**\r\n   *  @notice Returns the current owner of the factory\r\n   *  @dev Can be changed by the current owner via setOwner\r\n   *  @return The address of the factory owner\r\n   */\r\n  function owner() external view returns (address);\r\n\r\n  /**\r\n   *  @notice Returns the current poolDeployerAddress\r\n   *  @return The address of the poolDeployer\r\n   */\r\n  function poolDeployer() external view returns (address);\r\n\r\n  /**\r\n   * @dev Is retrieved from the pools to restrict calling\r\n   * certain functions not by a tokenomics contract\r\n   * @return The tokenomics contract address\r\n   */\r\n  function farmingAddress() external view returns (address);\r\n\r\n  function vaultAddress() external view returns (address);\r\n\r\n  /**\r\n   *  @notice Returns the pool address for a given pair of tokens and a fee, or address 0 if it does not exist\r\n   *  @dev tokenA and tokenB may be passed in either token0/token1 or token1/token0 order\r\n   *  @param tokenA The contract address of either token0 or token1\r\n   *  @param tokenB The contract address of the other token\r\n   *  @return pool The pool address\r\n   */\r\n  function poolByPair(address tokenA, address tokenB) external view returns (address pool);\r\n\r\n  /**\r\n   *  @notice Creates a pool for the given two tokens and fee\r\n   *  @param tokenA One of the two tokens in the desired pool\r\n   *  @param tokenB The other of the two tokens in the desired pool\r\n   *  @dev tokenA and tokenB may be passed in either order: token0/token1 or token1/token0. tickSpacing is retrieved\r\n   *  from the fee. The call will revert if the pool already exists, the fee is invalid, or the token arguments\r\n   *  are invalid.\r\n   *  @return pool The address of the newly created pool\r\n   */\r\n  function createPool(address tokenA, address tokenB) external returns (address pool);\r\n\r\n  /**\r\n   *  @notice Updates the owner of the factory\r\n   *  @dev Must be called by the current owner\r\n   *  @param _owner The new owner of the factory\r\n   */\r\n  function setOwner(address _owner) external;\r\n\r\n  /**\r\n   * @dev updates tokenomics address on the factory\r\n   * @param _farmingAddress The new tokenomics contract address\r\n   */\r\n  function setFarmingAddress(address _farmingAddress) external;\r\n\r\n  /**\r\n   * @dev updates vault address on the factory\r\n   * @param _vaultAddress The new vault contract address\r\n   */\r\n  function setVaultAddress(address _vaultAddress) external;\r\n\r\n  /**\r\n   * @notice Changes initial fee configuration for new pools\r\n   * @dev changes coefficients for sigmoids: α / (1 + e^( (β-x) / γ))\r\n   * alpha1 + alpha2 + baseFee (max possible fee) must be <= type(uint16).max\r\n   * gammas must be > 0\r\n   * @param alpha1 max value of the first sigmoid\r\n   * @param alpha2 max value of the second sigmoid\r\n   * @param beta1 shift along the x-axis for the first sigmoid\r\n   * @param beta2 shift along the x-axis for the second sigmoid\r\n   * @param gamma1 horizontal stretch factor for the first sigmoid\r\n   * @param gamma2 horizontal stretch factor for the second sigmoid\r\n   * @param volumeBeta shift along the x-axis for the outer volume-sigmoid\r\n   * @param volumeGamma horizontal stretch factor the outer volume-sigmoid\r\n   * @param baseFee minimum possible fee\r\n   */\r\n  function setBaseFeeConfiguration(\r\n    uint16 alpha1,\r\n    uint16 alpha2,\r\n    uint32 beta1,\r\n    uint32 beta2,\r\n    uint16 gamma1,\r\n    uint16 gamma2,\r\n    uint32 volumeBeta,\r\n    uint16 volumeGamma,\r\n    uint16 baseFee\r\n  ) external;\r\n}\r\n"
+        "content": "// SPDX-License-Identifier: GPL-2.0-or-later\npragma solidity >=0.5.0;\n\n/**\n * @title The interface for the Algebra Factory\n * @dev Credit to Uniswap Labs under GPL-2.0-or-later license:\n * https://github.com/Uniswap/v3-core/tree/main/contracts/interfaces\n */\ninterface IAlgebraFactory {\n  /**\n   *  @notice Emitted when the owner of the factory is changed\n   *  @param newOwner The owner after the owner was changed\n   */\n  event Owner(address indexed newOwner);\n\n  /**\n   *  @notice Emitted when the vault address is changed\n   *  @param newVaultAddress The vault address after the address was changed\n   */\n  event VaultAddress(address indexed newVaultAddress);\n\n  /**\n   *  @notice Emitted when a pool is created\n   *  @param token0 The first token of the pool by address sort order\n   *  @param token1 The second token of the pool by address sort order\n   *  @param pool The address of the created pool\n   */\n  event Pool(address indexed token0, address indexed token1, address pool);\n\n  /**\n   *  @notice Emitted when the farming address is changed\n   *  @param newFarmingAddress The farming address after the address was changed\n   */\n  event FarmingAddress(address indexed newFarmingAddress);\n\n  event FeeConfiguration(\n    uint16 alpha1,\n    uint16 alpha2,\n    uint32 beta1,\n    uint32 beta2,\n    uint16 gamma1,\n    uint16 gamma2,\n    uint32 volumeBeta,\n    uint16 volumeGamma,\n    uint16 baseFee\n  );\n\n  /**\n   *  @notice Returns the current owner of the factory\n   *  @dev Can be changed by the current owner via setOwner\n   *  @return The address of the factory owner\n   */\n  function owner() external view returns (address);\n\n  /**\n   *  @notice Returns the current poolDeployerAddress\n   *  @return The address of the poolDeployer\n   */\n  function poolDeployer() external view returns (address);\n\n  /**\n   * @dev Is retrieved from the pools to restrict calling\n   * certain functions not by a tokenomics contract\n   * @return The tokenomics contract address\n   */\n  function farmingAddress() external view returns (address);\n\n  function vaultAddress() external view returns (address);\n\n  /**\n   *  @notice Returns the pool address for a given pair of tokens and a fee, or address 0 if it does not exist\n   *  @dev tokenA and tokenB may be passed in either token0/token1 or token1/token0 order\n   *  @param tokenA The contract address of either token0 or token1\n   *  @param tokenB The contract address of the other token\n   *  @return pool The pool address\n   */\n  function poolByPair(address tokenA, address tokenB) external view returns (address pool);\n\n  /**\n   *  @notice Creates a pool for the given two tokens and fee\n   *  @param tokenA One of the two tokens in the desired pool\n   *  @param tokenB The other of the two tokens in the desired pool\n   *  @dev tokenA and tokenB may be passed in either order: token0/token1 or token1/token0. tickSpacing is retrieved\n   *  from the fee. The call will revert if the pool already exists, the fee is invalid, or the token arguments\n   *  are invalid.\n   *  @return pool The address of the newly created pool\n   */\n  function createPool(address tokenA, address tokenB) external returns (address pool);\n\n  /**\n   *  @notice Updates the owner of the factory\n   *  @dev Must be called by the current owner\n   *  @param _owner The new owner of the factory\n   */\n  function setOwner(address _owner) external;\n\n  /**\n   * @dev updates tokenomics address on the factory\n   * @param _farmingAddress The new tokenomics contract address\n   */\n  function setFarmingAddress(address _farmingAddress) external;\n\n  /**\n   * @dev updates vault address on the factory\n   * @param _vaultAddress The new vault contract address\n   */\n  function setVaultAddress(address _vaultAddress) external;\n\n  /**\n   * @notice Changes initial fee configuration for new pools\n   * @dev changes coefficients for sigmoids: α / (1 + e^( (β-x) / γ))\n   * alpha1 + alpha2 + baseFee (max possible fee) must be <= type(uint16).max\n   * gammas must be > 0\n   * @param alpha1 max value of the first sigmoid\n   * @param alpha2 max value of the second sigmoid\n   * @param beta1 shift along the x-axis for the first sigmoid\n   * @param beta2 shift along the x-axis for the second sigmoid\n   * @param gamma1 horizontal stretch factor for the first sigmoid\n   * @param gamma2 horizontal stretch factor for the second sigmoid\n   * @param volumeBeta shift along the x-axis for the outer volume-sigmoid\n   * @param volumeGamma horizontal stretch factor the outer volume-sigmoid\n   * @param baseFee minimum possible fee\n   */\n  function setBaseFeeConfiguration(\n    uint16 alpha1,\n    uint16 alpha2,\n    uint32 beta1,\n    uint32 beta2,\n    uint16 gamma1,\n    uint16 gamma2,\n    uint32 volumeBeta,\n    uint16 volumeGamma,\n    uint16 baseFee\n  ) external;\n}\n"
       }
     },
     "settings": {
@@ -358,6 +358,7 @@
           ],
           "evm": {
             "bytecode": {
+              "functionDebugData": {},
               "generatedSources": [],
               "linkReferences": {},
               "object": "",
@@ -365,6 +366,7 @@
               "sourceMap": ""
             },
             "deployedBytecode": {
+              "functionDebugData": {},
               "generatedSources": [],
               "immutableReferences": {},
               "linkReferences": {},
@@ -410,17 +412,18 @@
                 ".0"
               ],
               "nodeType": "PragmaDirective",
-              "src": "46:24:0"
+              "src": "45:24:0"
             },
             {
               "abstract": false,
               "baseContracts": [],
+              "canonicalName": "IAlgebraFactory",
               "contractDependencies": [],
               "contractKind": "interface",
               "documentation": {
                 "id": 2,
                 "nodeType": "StructuredDocumentation",
-                "src": "74:191:0",
+                "src": "71:187:0",
                 "text": " @title The interface for the Algebra Factory\n @dev Credit to Uniswap Labs under GPL-2.0-or-later license:\n https://github.com/Uniswap/v3-core/tree/main/contracts/interfaces"
               },
               "fullyImplemented": false,
@@ -429,6 +432,7 @@
                 130
               ],
               "name": "IAlgebraFactory",
+              "nameLocation": "269:15:0",
               "nodeType": "ContractDefinition",
               "nodes": [
                 {
@@ -436,11 +440,13 @@
                   "documentation": {
                     "id": 3,
                     "nodeType": "StructuredDocumentation",
-                    "src": "298:135:0",
+                    "src": "289:132:0",
                     "text": "  @notice Emitted when the owner of the factory is changed\n  @param newOwner The owner after the owner was changed"
                   },
+                  "eventSelector": "a5e220c2c27d986cc8efeafa8f34ba6ea6bf96a34e146b29b6bdd8587771b130",
                   "id": 7,
                   "name": "Owner",
+                  "nameLocation": "430:5:0",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 6,
@@ -452,9 +458,10 @@
                         "indexed": true,
                         "mutability": "mutable",
                         "name": "newOwner",
+                        "nameLocation": "452:8:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 7,
-                        "src": "449:24:0",
+                        "src": "436:24:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -465,7 +472,7 @@
                           "id": 4,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "449:7:0",
+                          "src": "436:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -475,20 +482,22 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "448:26:0"
+                    "src": "435:26:0"
                   },
-                  "src": "437:38:0"
+                  "src": "424:38:0"
                 },
                 {
                   "anonymous": false,
                   "documentation": {
                     "id": 8,
                     "nodeType": "StructuredDocumentation",
-                    "src": "481:145:0",
+                    "src": "466:142:0",
                     "text": "  @notice Emitted when the vault address is changed\n  @param newVaultAddress The vault address after the address was changed"
                   },
+                  "eventSelector": "b9c265ae4414f501736ec5d4961edc3309e4385eb2ff3feeecb30fb36621dd83",
                   "id": 12,
                   "name": "VaultAddress",
+                  "nameLocation": "617:12:0",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 11,
@@ -500,9 +509,10 @@
                         "indexed": true,
                         "mutability": "mutable",
                         "name": "newVaultAddress",
+                        "nameLocation": "646:15:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 12,
-                        "src": "649:31:0",
+                        "src": "630:31:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -513,7 +523,7 @@
                           "id": 9,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "649:7:0",
+                          "src": "630:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -523,20 +533,22 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "648:33:0"
+                    "src": "629:33:0"
                   },
-                  "src": "630:52:0"
+                  "src": "611:52:0"
                 },
                 {
                   "anonymous": false,
                   "documentation": {
                     "id": 13,
                     "nodeType": "StructuredDocumentation",
-                    "src": "688:250:0",
+                    "src": "667:245:0",
                     "text": "  @notice Emitted when a pool is created\n  @param token0 The first token of the pool by address sort order\n  @param token1 The second token of the pool by address sort order\n  @param pool The address of the created pool"
                   },
+                  "eventSelector": "91ccaa7a278130b65168c3a0c8d3bcae84cf5e43704342bd3ec0b59e59c036db",
                   "id": 21,
                   "name": "Pool",
+                  "nameLocation": "921:4:0",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 20,
@@ -548,9 +560,10 @@
                         "indexed": true,
                         "mutability": "mutable",
                         "name": "token0",
+                        "nameLocation": "942:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 21,
-                        "src": "953:22:0",
+                        "src": "926:22:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -561,7 +574,7 @@
                           "id": 14,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "953:7:0",
+                          "src": "926:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -576,9 +589,10 @@
                         "indexed": true,
                         "mutability": "mutable",
                         "name": "token1",
+                        "nameLocation": "966:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 21,
-                        "src": "977:22:0",
+                        "src": "950:22:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -589,7 +603,7 @@
                           "id": 16,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "977:7:0",
+                          "src": "950:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -604,9 +618,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "pool",
+                        "nameLocation": "982:4:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 21,
-                        "src": "1001:12:0",
+                        "src": "974:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -617,7 +632,7 @@
                           "id": 18,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1001:7:0",
+                          "src": "974:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -627,20 +642,22 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "952:62:0"
+                    "src": "925:62:0"
                   },
-                  "src": "942:73:0"
+                  "src": "915:73:0"
                 },
                 {
                   "anonymous": false,
                   "documentation": {
                     "id": 22,
                     "nodeType": "StructuredDocumentation",
-                    "src": "1021:151:0",
+                    "src": "992:148:0",
                     "text": "  @notice Emitted when the farming address is changed\n  @param newFarmingAddress The farming address after the address was changed"
                   },
+                  "eventSelector": "56b9e8342f530796ceed0d5529abdcdeae6e4f2ac1dc456ceb73bbda898e0cd3",
                   "id": 26,
                   "name": "FarmingAddress",
+                  "nameLocation": "1149:14:0",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 25,
@@ -652,9 +669,10 @@
                         "indexed": true,
                         "mutability": "mutable",
                         "name": "newFarmingAddress",
+                        "nameLocation": "1180:17:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 26,
-                        "src": "1197:33:0",
+                        "src": "1164:33:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -665,7 +683,7 @@
                           "id": 23,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1197:7:0",
+                          "src": "1164:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -675,14 +693,16 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "1196:35:0"
+                    "src": "1163:35:0"
                   },
-                  "src": "1176:56:0"
+                  "src": "1143:56:0"
                 },
                 {
                   "anonymous": false,
+                  "eventSelector": "4035ab409f15e202f9f114632e1fb14a0552325955722be18503403e7f98730c",
                   "id": 46,
                   "name": "FeeConfiguration",
+                  "nameLocation": "1209:16:0",
                   "nodeType": "EventDefinition",
                   "parameters": {
                     "id": 45,
@@ -694,9 +714,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "alpha1",
+                        "nameLocation": "1238:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1267:13:0",
+                        "src": "1231:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -707,7 +728,7 @@
                           "id": 27,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1267:6:0",
+                          "src": "1231:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -721,9 +742,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "alpha2",
+                        "nameLocation": "1257:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1287:13:0",
+                        "src": "1250:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -734,7 +756,7 @@
                           "id": 29,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1287:6:0",
+                          "src": "1250:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -748,9 +770,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "beta1",
+                        "nameLocation": "1276:5:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1307:12:0",
+                        "src": "1269:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -761,7 +784,7 @@
                           "id": 31,
                           "name": "uint32",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1307:6:0",
+                          "src": "1269:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
                             "typeString": "uint32"
@@ -775,9 +798,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "beta2",
+                        "nameLocation": "1294:5:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1326:12:0",
+                        "src": "1287:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -788,7 +812,7 @@
                           "id": 33,
                           "name": "uint32",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1326:6:0",
+                          "src": "1287:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
                             "typeString": "uint32"
@@ -802,9 +826,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "gamma1",
+                        "nameLocation": "1312:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1345:13:0",
+                        "src": "1305:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -815,7 +840,7 @@
                           "id": 35,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1345:6:0",
+                          "src": "1305:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -829,9 +854,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "gamma2",
+                        "nameLocation": "1331:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1365:13:0",
+                        "src": "1324:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -842,7 +868,7 @@
                           "id": 37,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1365:6:0",
+                          "src": "1324:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -856,9 +882,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "volumeBeta",
+                        "nameLocation": "1350:10:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1385:17:0",
+                        "src": "1343:17:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -869,7 +896,7 @@
                           "id": 39,
                           "name": "uint32",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1385:6:0",
+                          "src": "1343:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
                             "typeString": "uint32"
@@ -883,9 +910,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "volumeGamma",
+                        "nameLocation": "1373:11:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1409:18:0",
+                        "src": "1366:18:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -896,7 +924,7 @@
                           "id": 41,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1409:6:0",
+                          "src": "1366:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -910,9 +938,10 @@
                         "indexed": false,
                         "mutability": "mutable",
                         "name": "baseFee",
+                        "nameLocation": "1397:7:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 46,
-                        "src": "1434:14:0",
+                        "src": "1390:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -923,7 +952,7 @@
                           "id": 43,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1434:6:0",
+                          "src": "1390:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -932,15 +961,15 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "1260:193:0"
+                    "src": "1225:183:0"
                   },
-                  "src": "1238:216:0"
+                  "src": "1203:206:0"
                 },
                 {
                   "documentation": {
                     "id": 47,
                     "nodeType": "StructuredDocumentation",
-                    "src": "1460:175:0",
+                    "src": "1413:171:0",
                     "text": "  @notice Returns the current owner of the factory\n  @dev Can be changed by the current owner via setOwner\n  @return The address of the factory owner"
                   },
                   "functionSelector": "8da5cb5b",
@@ -949,12 +978,13 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "owner",
+                  "nameLocation": "1596:5:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 48,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "1653:2:0"
+                    "src": "1601:2:0"
                   },
                   "returnParameters": {
                     "id": 51,
@@ -965,9 +995,10 @@
                         "id": 50,
                         "mutability": "mutable",
                         "name": "",
+                        "nameLocation": "-1:-1:-1",
                         "nodeType": "VariableDeclaration",
                         "scope": 52,
-                        "src": "1679:7:0",
+                        "src": "1627:7:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -978,7 +1009,7 @@
                           "id": 49,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1679:7:0",
+                          "src": "1627:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -988,10 +1019,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "1678:9:0"
+                    "src": "1626:9:0"
                   },
                   "scope": 130,
-                  "src": "1639:49:0",
+                  "src": "1587:49:0",
                   "stateMutability": "view",
                   "virtual": false,
                   "visibility": "external"
@@ -1000,7 +1031,7 @@
                   "documentation": {
                     "id": 53,
                     "nodeType": "StructuredDocumentation",
-                    "src": "1694:112:0",
+                    "src": "1640:109:0",
                     "text": "  @notice Returns the current poolDeployerAddress\n  @return The address of the poolDeployer"
                   },
                   "functionSelector": "3119049a",
@@ -1009,12 +1040,13 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "poolDeployer",
+                  "nameLocation": "1761:12:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 54,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "1831:2:0"
+                    "src": "1773:2:0"
                   },
                   "returnParameters": {
                     "id": 57,
@@ -1025,9 +1057,10 @@
                         "id": 56,
                         "mutability": "mutable",
                         "name": "",
+                        "nameLocation": "-1:-1:-1",
                         "nodeType": "VariableDeclaration",
                         "scope": 58,
-                        "src": "1857:7:0",
+                        "src": "1799:7:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1038,7 +1071,7 @@
                           "id": 55,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "1857:7:0",
+                          "src": "1799:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1048,10 +1081,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "1856:9:0"
+                    "src": "1798:9:0"
                   },
                   "scope": 130,
-                  "src": "1810:56:0",
+                  "src": "1752:56:0",
                   "stateMutability": "view",
                   "virtual": false,
                   "visibility": "external"
@@ -1060,7 +1093,7 @@
                   "documentation": {
                     "id": 59,
                     "nodeType": "StructuredDocumentation",
-                    "src": "1872:168:0",
+                    "src": "1812:164:0",
                     "text": " @dev Is retrieved from the pools to restrict calling\n certain functions not by a tokenomics contract\n @return The tokenomics contract address"
                   },
                   "functionSelector": "8a2ade58",
@@ -1069,12 +1102,13 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "farmingAddress",
+                  "nameLocation": "1988:14:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 60,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "2067:2:0"
+                    "src": "2002:2:0"
                   },
                   "returnParameters": {
                     "id": 63,
@@ -1085,9 +1119,10 @@
                         "id": 62,
                         "mutability": "mutable",
                         "name": "",
+                        "nameLocation": "-1:-1:-1",
                         "nodeType": "VariableDeclaration",
                         "scope": 64,
-                        "src": "2093:7:0",
+                        "src": "2028:7:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1098,7 +1133,7 @@
                           "id": 61,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2093:7:0",
+                          "src": "2028:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1108,10 +1143,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2092:9:0"
+                    "src": "2027:9:0"
                   },
                   "scope": 130,
-                  "src": "2044:58:0",
+                  "src": "1979:58:0",
                   "stateMutability": "view",
                   "virtual": false,
                   "visibility": "external"
@@ -1123,12 +1158,13 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "vaultAddress",
+                  "nameLocation": "2050:12:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 65,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "2129:2:0"
+                    "src": "2062:2:0"
                   },
                   "returnParameters": {
                     "id": 68,
@@ -1139,9 +1175,10 @@
                         "id": 67,
                         "mutability": "mutable",
                         "name": "",
+                        "nameLocation": "-1:-1:-1",
                         "nodeType": "VariableDeclaration",
                         "scope": 69,
-                        "src": "2155:7:0",
+                        "src": "2088:7:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1152,7 +1189,7 @@
                           "id": 66,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2155:7:0",
+                          "src": "2088:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1162,10 +1199,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2154:9:0"
+                    "src": "2087:9:0"
                   },
                   "scope": 130,
-                  "src": "2108:56:0",
+                  "src": "2041:56:0",
                   "stateMutability": "view",
                   "virtual": false,
                   "visibility": "external"
@@ -1174,7 +1211,7 @@
                   "documentation": {
                     "id": 70,
                     "nodeType": "StructuredDocumentation",
-                    "src": "2170:380:0",
+                    "src": "2101:374:0",
                     "text": "  @notice Returns the pool address for a given pair of tokens and a fee, or address 0 if it does not exist\n  @dev tokenA and tokenB may be passed in either token0/token1 or token1/token0 order\n  @param tokenA The contract address of either token0 or token1\n  @param tokenB The contract address of the other token\n  @return pool The pool address"
                   },
                   "functionSelector": "d9a641e1",
@@ -1183,6 +1220,7 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "poolByPair",
+                  "nameLocation": "2487:10:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 75,
@@ -1193,9 +1231,10 @@
                         "id": 72,
                         "mutability": "mutable",
                         "name": "tokenA",
+                        "nameLocation": "2506:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 79,
-                        "src": "2574:14:0",
+                        "src": "2498:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1206,7 +1245,7 @@
                           "id": 71,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2574:7:0",
+                          "src": "2498:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1220,9 +1259,10 @@
                         "id": 74,
                         "mutability": "mutable",
                         "name": "tokenB",
+                        "nameLocation": "2522:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 79,
-                        "src": "2590:14:0",
+                        "src": "2514:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1233,7 +1273,7 @@
                           "id": 73,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2590:7:0",
+                          "src": "2514:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1243,7 +1283,7 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2573:32:0"
+                    "src": "2497:32:0"
                   },
                   "returnParameters": {
                     "id": 78,
@@ -1254,9 +1294,10 @@
                         "id": 77,
                         "mutability": "mutable",
                         "name": "pool",
+                        "nameLocation": "2561:4:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 79,
-                        "src": "2629:12:0",
+                        "src": "2553:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1267,7 +1308,7 @@
                           "id": 76,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "2629:7:0",
+                          "src": "2553:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1277,10 +1318,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "2628:14:0"
+                    "src": "2552:14:0"
                   },
                   "scope": 130,
-                  "src": "2554:89:0",
+                  "src": "2478:89:0",
                   "stateMutability": "view",
                   "virtual": false,
                   "visibility": "external"
@@ -1289,7 +1330,7 @@
                   "documentation": {
                     "id": 80,
                     "nodeType": "StructuredDocumentation",
-                    "src": "2649:514:0",
+                    "src": "2571:506:0",
                     "text": "  @notice Creates a pool for the given two tokens and fee\n  @param tokenA One of the two tokens in the desired pool\n  @param tokenB The other of the two tokens in the desired pool\n  @dev tokenA and tokenB may be passed in either order: token0/token1 or token1/token0. tickSpacing is retrieved\n  from the fee. The call will revert if the pool already exists, the fee is invalid, or the token arguments\n  are invalid.\n  @return pool The address of the newly created pool"
                   },
                   "functionSelector": "e3433615",
@@ -1298,6 +1339,7 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "createPool",
+                  "nameLocation": "3089:10:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 85,
@@ -1308,9 +1350,10 @@
                         "id": 82,
                         "mutability": "mutable",
                         "name": "tokenA",
+                        "nameLocation": "3108:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 89,
-                        "src": "3187:14:0",
+                        "src": "3100:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1321,7 +1364,7 @@
                           "id": 81,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "3187:7:0",
+                          "src": "3100:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1335,9 +1378,10 @@
                         "id": 84,
                         "mutability": "mutable",
                         "name": "tokenB",
+                        "nameLocation": "3124:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 89,
-                        "src": "3203:14:0",
+                        "src": "3116:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1348,7 +1392,7 @@
                           "id": 83,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "3203:7:0",
+                          "src": "3116:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1358,7 +1402,7 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "3186:32:0"
+                    "src": "3099:32:0"
                   },
                   "returnParameters": {
                     "id": 88,
@@ -1369,9 +1413,10 @@
                         "id": 87,
                         "mutability": "mutable",
                         "name": "pool",
+                        "nameLocation": "3158:4:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 89,
-                        "src": "3237:12:0",
+                        "src": "3150:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1382,7 +1427,7 @@
                           "id": 86,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "3237:7:0",
+                          "src": "3150:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1392,10 +1437,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "3236:14:0"
+                    "src": "3149:14:0"
                   },
                   "scope": 130,
-                  "src": "3167:84:0",
+                  "src": "3080:84:0",
                   "stateMutability": "nonpayable",
                   "virtual": false,
                   "visibility": "external"
@@ -1404,7 +1449,7 @@
                   "documentation": {
                     "id": 90,
                     "nodeType": "StructuredDocumentation",
-                    "src": "3257:156:0",
+                    "src": "3168:152:0",
                     "text": "  @notice Updates the owner of the factory\n  @dev Must be called by the current owner\n  @param _owner The new owner of the factory"
                   },
                   "functionSelector": "13af4035",
@@ -1413,6 +1458,7 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "setOwner",
+                  "nameLocation": "3332:8:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 93,
@@ -1423,9 +1469,10 @@
                         "id": 92,
                         "mutability": "mutable",
                         "name": "_owner",
+                        "nameLocation": "3349:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 95,
-                        "src": "3435:14:0",
+                        "src": "3341:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1436,7 +1483,7 @@
                           "id": 91,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "3435:7:0",
+                          "src": "3341:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1446,16 +1493,16 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "3434:16:0"
+                    "src": "3340:16:0"
                   },
                   "returnParameters": {
                     "id": 94,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "3459:0:0"
+                    "src": "3365:0:0"
                   },
                   "scope": 130,
-                  "src": "3417:43:0",
+                  "src": "3323:43:0",
                   "stateMutability": "nonpayable",
                   "virtual": false,
                   "visibility": "external"
@@ -1464,7 +1511,7 @@
                   "documentation": {
                     "id": 96,
                     "nodeType": "StructuredDocumentation",
-                    "src": "3466:128:0",
+                    "src": "3370:125:0",
                     "text": " @dev updates tokenomics address on the factory\n @param _farmingAddress The new tokenomics contract address"
                   },
                   "functionSelector": "b001f618",
@@ -1473,6 +1520,7 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "setFarmingAddress",
+                  "nameLocation": "3507:17:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 99,
@@ -1483,9 +1531,10 @@
                         "id": 98,
                         "mutability": "mutable",
                         "name": "_farmingAddress",
+                        "nameLocation": "3533:15:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 101,
-                        "src": "3625:23:0",
+                        "src": "3525:23:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1496,7 +1545,7 @@
                           "id": 97,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "3625:7:0",
+                          "src": "3525:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1506,16 +1555,16 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "3624:25:0"
+                    "src": "3524:25:0"
                   },
                   "returnParameters": {
                     "id": 100,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "3658:0:0"
+                    "src": "3558:0:0"
                   },
                   "scope": 130,
-                  "src": "3598:61:0",
+                  "src": "3498:61:0",
                   "stateMutability": "nonpayable",
                   "virtual": false,
                   "visibility": "external"
@@ -1524,7 +1573,7 @@
                   "documentation": {
                     "id": 102,
                     "nodeType": "StructuredDocumentation",
-                    "src": "3665:116:0",
+                    "src": "3563:113:0",
                     "text": " @dev updates vault address on the factory\n @param _vaultAddress The new vault contract address"
                   },
                   "functionSelector": "85535cc5",
@@ -1533,6 +1582,7 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "setVaultAddress",
+                  "nameLocation": "3688:15:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 105,
@@ -1543,9 +1593,10 @@
                         "id": 104,
                         "mutability": "mutable",
                         "name": "_vaultAddress",
+                        "nameLocation": "3712:13:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 107,
-                        "src": "3810:21:0",
+                        "src": "3704:21:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1556,7 +1607,7 @@
                           "id": 103,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
-                          "src": "3810:7:0",
+                          "src": "3704:7:0",
                           "stateMutability": "nonpayable",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -1566,16 +1617,16 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "3809:23:0"
+                    "src": "3703:23:0"
                   },
                   "returnParameters": {
                     "id": 106,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "3841:0:0"
+                    "src": "3735:0:0"
                   },
                   "scope": 130,
-                  "src": "3785:57:0",
+                  "src": "3679:57:0",
                   "stateMutability": "nonpayable",
                   "virtual": false,
                   "visibility": "external"
@@ -1584,7 +1635,7 @@
                   "documentation": {
                     "id": 108,
                     "nodeType": "StructuredDocumentation",
-                    "src": "3848:813:0",
+                    "src": "3740:799:0",
                     "text": " @notice Changes initial fee configuration for new pools\n @dev changes coefficients for sigmoids: α / (1 + e^( (β-x) / γ))\n alpha1 + alpha2 + baseFee (max possible fee) must be <= type(uint16).max\n gammas must be > 0\n @param alpha1 max value of the first sigmoid\n @param alpha2 max value of the second sigmoid\n @param beta1 shift along the x-axis for the first sigmoid\n @param beta2 shift along the x-axis for the second sigmoid\n @param gamma1 horizontal stretch factor for the first sigmoid\n @param gamma2 horizontal stretch factor for the second sigmoid\n @param volumeBeta shift along the x-axis for the outer volume-sigmoid\n @param volumeGamma horizontal stretch factor the outer volume-sigmoid\n @param baseFee minimum possible fee"
                   },
                   "functionSelector": "5d6d7e93",
@@ -1593,6 +1644,7 @@
                   "kind": "function",
                   "modifiers": [],
                   "name": "setBaseFeeConfiguration",
+                  "nameLocation": "4551:23:0",
                   "nodeType": "FunctionDefinition",
                   "parameters": {
                     "id": 127,
@@ -1603,9 +1655,10 @@
                         "id": 110,
                         "mutability": "mutable",
                         "name": "alpha1",
+                        "nameLocation": "4587:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4704:13:0",
+                        "src": "4580:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1616,7 +1669,7 @@
                           "id": 109,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4704:6:0",
+                          "src": "4580:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -1629,9 +1682,10 @@
                         "id": 112,
                         "mutability": "mutable",
                         "name": "alpha2",
+                        "nameLocation": "4606:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4724:13:0",
+                        "src": "4599:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1642,7 +1696,7 @@
                           "id": 111,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4724:6:0",
+                          "src": "4599:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -1655,9 +1709,10 @@
                         "id": 114,
                         "mutability": "mutable",
                         "name": "beta1",
+                        "nameLocation": "4625:5:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4744:12:0",
+                        "src": "4618:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1668,7 +1723,7 @@
                           "id": 113,
                           "name": "uint32",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4744:6:0",
+                          "src": "4618:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
                             "typeString": "uint32"
@@ -1681,9 +1736,10 @@
                         "id": 116,
                         "mutability": "mutable",
                         "name": "beta2",
+                        "nameLocation": "4643:5:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4763:12:0",
+                        "src": "4636:12:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1694,7 +1750,7 @@
                           "id": 115,
                           "name": "uint32",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4763:6:0",
+                          "src": "4636:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
                             "typeString": "uint32"
@@ -1707,9 +1763,10 @@
                         "id": 118,
                         "mutability": "mutable",
                         "name": "gamma1",
+                        "nameLocation": "4661:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4782:13:0",
+                        "src": "4654:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1720,7 +1777,7 @@
                           "id": 117,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4782:6:0",
+                          "src": "4654:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -1733,9 +1790,10 @@
                         "id": 120,
                         "mutability": "mutable",
                         "name": "gamma2",
+                        "nameLocation": "4680:6:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4802:13:0",
+                        "src": "4673:13:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1746,7 +1804,7 @@
                           "id": 119,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4802:6:0",
+                          "src": "4673:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -1759,9 +1817,10 @@
                         "id": 122,
                         "mutability": "mutable",
                         "name": "volumeBeta",
+                        "nameLocation": "4699:10:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4822:17:0",
+                        "src": "4692:17:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1772,7 +1831,7 @@
                           "id": 121,
                           "name": "uint32",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4822:6:0",
+                          "src": "4692:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint32",
                             "typeString": "uint32"
@@ -1785,9 +1844,10 @@
                         "id": 124,
                         "mutability": "mutable",
                         "name": "volumeGamma",
+                        "nameLocation": "4722:11:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4846:18:0",
+                        "src": "4715:18:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1798,7 +1858,7 @@
                           "id": 123,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4846:6:0",
+                          "src": "4715:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -1811,9 +1871,10 @@
                         "id": 126,
                         "mutability": "mutable",
                         "name": "baseFee",
+                        "nameLocation": "4746:7:0",
                         "nodeType": "VariableDeclaration",
                         "scope": 129,
-                        "src": "4871:14:0",
+                        "src": "4739:14:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1824,7 +1885,7 @@
                           "id": 125,
                           "name": "uint16",
                           "nodeType": "ElementaryTypeName",
-                          "src": "4871:6:0",
+                          "src": "4739:6:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
@@ -1833,26 +1894,27 @@
                         "visibility": "internal"
                       }
                     ],
-                    "src": "4697:193:0"
+                    "src": "4574:183:0"
                   },
                   "returnParameters": {
                     "id": 128,
                     "nodeType": "ParameterList",
                     "parameters": [],
-                    "src": "4899:0:0"
+                    "src": "4766:0:0"
                   },
                   "scope": 130,
-                  "src": "4665:235:0",
+                  "src": "4542:225:0",
                   "stateMutability": "nonpayable",
                   "virtual": false,
                   "visibility": "external"
                 }
               ],
               "scope": 131,
-              "src": "267:4636:0"
+              "src": "259:4510:0",
+              "usedErrors": []
             }
           ],
-          "src": "46:4859:0"
+          "src": "45:4725:0"
         },
         "id": 0
       }

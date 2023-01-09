@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
   "contractName": "IERC721Enumerable",
-  "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol",
+  "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
   "abi": [
     {
       "anonymous": false,
@@ -301,7 +301,7 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "",
           "type": "uint256"
         }
       ],
